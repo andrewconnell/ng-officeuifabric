@@ -1,41 +1,36 @@
 'use strict';
 
 import {Utils} from './utils';
-import * as childProcess from 'child_process';
-import * as tmp from 'tmp';
-import * as colors from 'colors';
+import * as fs from 'fs';
+import * as yargs from 'yargs';
 
-// get the version number
-console.log('library version', Utils.getLibraryVersion());
+// verify required params passed in
+if (!yargs.argv.src || !yargs.argv.pkg) {
+  console.error('must specify the path to \'--src\' & \'--pkg\'');
+  process.exit();
+}
 
-// get dependencies
-let deps: ILibraryDependencies = Utils.getDependencies();
-console.log('angularv', deps.angularLib);
-console.log('fabricv', deps.officeUiFabricLib);
+// get library version & dependencies
+let libraryVersion: string = Utils.getLibraryVersion(yargs.argv.src);
+let deps: ILibraryDependencies = Utils.getDependencies(yargs.argv.src);
 
-// tag the current version
-let libraryVersion: string = Utils.getLibraryVersion();
-console.log(colors.white('Tagging library as version %s ...'), libraryVersion);
-Utils.gitExec('git tag -f ' + libraryVersion);
+// update bower
+let bowerManifest: any = require(yargs.argv.pkg + '/bower.json');
+bowerManifest.version = libraryVersion;
+bowerManifest.dependencies = {
+  'angular': deps.angularLib,
+  'office-ui-fabric': deps.officeUiFabricLib
+};
+// write bower file back
+fs.writeFileSync(yargs.argv.pkg + '/bower.json', JSON.stringify(bowerManifest, null, 2));
 
-// push current release to origin
-console.log(colors.white('Pushing repo to origin ...'));
-Utils.gitExec('git push -q origin master');
 
-// build libraries
-console.log(colors.white('Building library in release & debug mode...'));
-childProcess.execSync('gulp build-lib');
-childProcess.execSync('gulp build-lib --dev');
-
-// create temp folder
-let buildFolder: tmp.SynchrounousResult = tmp.dirSync({ prefix: 'ngouif_'});
-console.log('.. temp working folder: %s', buildFolder.name);
-
-// clone packageing repo
-console.log(colors.white('Cloning packaging repo...'));
-childProcess.execSync('git clone https://github.com/ngOfficeUiFabric/package-ngofficeuifabric ' + buildFolder.name);
-
-// copy built files
-console.log(colors.white('Updating packaging repo...'));
-childProcess.execSync('cp dist/* ' + buildFolder.name);
-childProcess.execSync('cp changelog.md ' + buildFolder.name + '/changelog.md');
+// update package
+let packageManifest: any = require(yargs.argv.pkg + '/package.json');
+packageManifest.version = libraryVersion;
+packageManifest.dependencies = {
+  'angular': deps.angularLib,
+  'office-ui-fabric': deps.officeUiFabricLib
+};
+// write bower file back
+fs.writeFileSync(yargs.argv.pkg + '/package.json', JSON.stringify(packageManifest, null, 2));

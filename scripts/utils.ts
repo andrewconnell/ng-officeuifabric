@@ -9,9 +9,9 @@ export class Utils {
    * 
    * @returns string
    */
-  public static getLibraryVersion(): string {
+  public static getLibraryVersion(sourcePath: string): string {
     if (process.env.VERSION === undefined) {
-      return require('./../package.json').version;
+      return require(sourcePath + '/package.json').version;
     } else {
       return process.env.VERSION;
     }
@@ -22,9 +22,9 @@ export class Utils {
    * 
    * @returns ILibraryDependencies
    */
-  public static getDependencies(): ILibraryDependencies {
+  public static getDependencies(sourcePath: string): ILibraryDependencies {
     // get the dependencies
-    let libDeps: any = require('./../package.json').dependencies;
+    let libDeps: any = require(sourcePath + '/package.json').dependencies;
 
     // create new dep object & export
     let deps: ILibraryDependencies = {
@@ -33,9 +33,5 @@ export class Utils {
     };
 
     return deps;
-  }
-
-  public static gitExec(gitcmd: string): void {
-    console.log("$ %s", gitcmd);
   }
 }
