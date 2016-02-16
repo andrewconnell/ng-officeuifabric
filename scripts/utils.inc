@@ -254,12 +254,14 @@ function main {
   parseArgs "$@"
 
   # --git_push_dryrun argument
-  if [[ $GIT_PUSH_DRYRUN == "true" ]]; then
+  #if [[ $GIT_PUSH_DRYRUN == "true" ]]; then
+  if [[ $GIT_PUSH_DRYRUN != "false" ]]; then
     git_push_dryrun_proxy
   fi
 
   # --verbose argument
-  if [[ $VERBOSE == "true" ]]; then
+  #if [[ $VERBOSE = "true" ]]; then
+  if [[ $VERBOSE = "true" ]]; then
     set -x
   fi
 

@@ -1,27 +1,13 @@
 #!/bin/bash
 
 function init {
-  # define npm user for publishing
-  NPM_USER="andrewconnell";
-
   # setup paths
   SRC_PATH=$PWD
   PKG_PATH="$HOME/dev/scratch/package-ngofficeuifabric"
 }
 
 function run {
-  # verify correct person logged into NPM
-  echo ".. checking current npm logged in user..."
-  echo "... if npm fails in next statement, no one logged in"
-  NPMWHOAMI="$(npm whoami)"
-  if [ "$NPMWHOAMI" != '$NPM_USER' ]; then
-    echo "ERROR: Must be authenticated with npm as '$NPM_USER' to perform a release."
-    exit
-  fi
-
-
   cd ..
-
 
   # pre cleaning
   echo ".. pre cleaning"
@@ -76,11 +62,11 @@ function run {
 
   git commit -m "release(): $VERSION"
   echo ".. .. pushing origin master"
-  git push -q origin master --dry-run
+  git push -q origin master
 
   echo ".. .. adding tag for version $VERSION & pushing orign master"
   git tag -f $VERSION
-  git push --tags --dry-run
+  git push --tags
 }
 
 source $(dirname $0)/utils.inc
