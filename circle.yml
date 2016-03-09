@@ -1,0 +1,63 @@
+machine:
+  node:
+    version: 5.7.0
+  environment:
+    GIT_PUSH_DRYRUN: true
+
+general:
+  artifacts:
+    # compiled library
+    - "transpiled-libraries"
+    # code coverage report
+    - "code-coverage"
+    # deployment cache
+    - "depoyment-cache"
+
+dependencies:
+  pre:
+    # install dependencies
+    - npm install -g gulp
+    - npm install -g typescript
+    # compile typescript
+    - tsc -p ./
+
+test:
+  pre:
+    # vet all code
+    - gulp vet-lib-ts --verbose
+  post:
+    # copy code coverage => build artifacts
+    - mkdir $CIRCLE_ARTIFACTS/code-coverage
+    - mv ./coverage/**/lcov-report/** $CIRCLE_ARTIFACTS/code-coverage
+    # send code coverage report to coveralls.io
+    - "cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+
+deployment:
+  release:
+    branch: circleci
+    commands:
+      - sh build/scripts/check-version.sh --srcwd=$PWD
+      - echo "got here"
+      # pre
+      # (0) if build failed ... ABORT
+      # (1) if [latest tag] != [package.json].version ... ABORT
+      # (2) else, tag repo & push back to GitHub
+      #   > can you push a commit & tag at same time?
+
+      # deployment
+      # (1) build libraries
+      # (2) copy them to build artifacts
+      #   > mkdir $CIRCLE_ARTIFACTS/transpiled-libraries
+      #   > mv ./dist/** $CIRCLE_ARTIFACTS/transpiled-libraries
+
+      # (3) update deployments
+      #   > mkdir $CIRCLE_ARTIFACTS/depoyment-cache
+
+      # (3a) deploy to npm, bower, cdnjs
+      #   > update-pacakge-repo.sh --version=$version --src=$PWD --git-push-dryrun=$GIT_PUSH_DRYRUN --pkgwd=$CIRCLE_ARTIFACTS/depoyment-cache
+      #   TO-UPDATE > pass param in for clone path
+      # (3b) deploy to nuget
+      #   > update-nuget-repo.sh --version=$version --src=$PWD --git-push-dryrun=$GIT_PUSH_DRYRUN --pkgwd=$CIRCLE_ARTIFACTS/depoyment-cache
+      #   TO-UPDATE > pass param in for clone path
+
+# TODO add SLACK notification
