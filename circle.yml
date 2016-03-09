@@ -37,13 +37,11 @@ test:
     - "cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
 
 deployment:
-  pre:
-    commands:
-      # change permission on scripts
-      - sudo chmod 755 ./build/scripts/check-version.sh
   release:
     branch: circleci
     commands:
+      # change permission on scripts
+      - sudo chmod 755 ./build/scripts/check-version.sh
       # check if tagged version == package version
       - ./build/scripts/check-version.sh --srcwd=$PWD
 
