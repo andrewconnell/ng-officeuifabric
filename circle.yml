@@ -38,8 +38,9 @@ test:
 
 deployment:
   pre:
-    # change permission on scripts
-    - sudo chmod 755 ./build/scripts/check-version.sh
+    commands:
+      # change permission on scripts
+      - sudo chmod 755 ./build/scripts/check-version.sh
   release:
     branch: circleci
     commands:
