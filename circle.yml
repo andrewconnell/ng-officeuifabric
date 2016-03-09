@@ -13,6 +13,10 @@ general:
     # deployment cache
     - "depoyment-cache"
 
+checkout:
+  post:
+    - git fetch origin
+
 dependencies:
   pre:
     # install dependencies
@@ -33,12 +37,15 @@ test:
     - "cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
 
 deployment:
+  pre:
+    # change permission on scripts
+    - sudo chmod 755 ./build/scripts/check-version.sh
   release:
     branch: circleci
     commands:
       # check if tagged version == package version
-      - sudo chmod 755 ./build/scripts/check-version.sh
       - ./build/scripts/check-version.sh --srcwd=$PWD
+
       - echo "got here"
       # pre
       # (0) if build failed ... ABORT

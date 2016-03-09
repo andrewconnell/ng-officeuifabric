@@ -13,6 +13,8 @@ function run {
   # get last tag
   LAST_TAG=$(git describe --tags --abbrev=0)
 
+  echo "version= $VERSION"
+  echo "lasttag= $LAST_TAG"
 
   # make sure version != last tag,
   # `if so, no release needed so abort
@@ -21,7 +23,6 @@ function run {
     exit 1
   else
     echo "INFO: new version... latest tag is $LAST_TAG"
-    echo "INFO: version in package is $VERSION"
     exit 0
   fi
 }
