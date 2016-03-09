@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ARG_DEFS=(
   "--srcwd=(.*)"
 )
@@ -11,7 +13,7 @@ function run {
 
 
   # get last tag
-  LAST_TAG=$(git describe --tags --abbrev=0)
+  LAST_TAG=$(git describe --tags --abbrev=0 --always)
 
   echo "version= $VERSION"
   echo "lasttag= $LAST_TAG"

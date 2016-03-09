@@ -13,10 +13,6 @@ general:
     # deployment cache
     - "depoyment-cache"
 
-checkout:
-  post:
-    - git fetch origin
-
 dependencies:
   pre:
     # install dependencies
@@ -41,7 +37,7 @@ deployment:
     branch: circleci
     commands:
       # change permission on scripts
-      - sudo chmod 755 ./build/scripts/check-version.sh
+      #- sudo chmod 755 ./build/scripts/check-version.sh
       # check if tagged version == package version
       - ./build/scripts/check-version.sh --srcwd=$PWD
 
