@@ -40,13 +40,16 @@ module.exports = (config: karma.Config) => {
       BuildConfig.ALL_SPEC_FILES
     ),
     frameworks: ['jasmine'],
+    junitReporter: {
+      outputDir: 'test/'
+    },
     logLevel: config.LOG_WARN,
     plugins: ['karma-*'],
     port: 5793,
     preprocessors: {
       'src/**/*.js': ['webpack', 'sourcemap']
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['junit', 'progress', 'coverage'],
     singleRun: false,
     webpack: webpackSettings,
     webpackMiddleware: {
