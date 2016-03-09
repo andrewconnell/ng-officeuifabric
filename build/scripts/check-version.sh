@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ARG_DEFS=(
   "--srcwd=(.*)"
 )

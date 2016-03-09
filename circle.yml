@@ -36,7 +36,8 @@ deployment:
   release:
     branch: circleci
     commands:
-      - sh build/scripts/check-version.sh --srcwd=$PWD
+      - sudo chmod 755 build/scripts/check-version.sh
+      - build/scripts/check-version.sh --srcwd=$PWD
       - echo "got here"
       # pre
       # (0) if build failed ... ABORT
