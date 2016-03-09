@@ -7,7 +7,7 @@ function run {
   echo $SRCWD
 
   # get version
-  VERSION="$(readJsonProp "package.json" "version")"
+  VERSION="$(readJsonProp "$SRCWD/package.json" "version")"
 
 
   # get last tag
