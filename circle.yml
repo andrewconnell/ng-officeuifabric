@@ -26,6 +26,9 @@ test:
     # vet all code
     - gulp vet-lib-ts --verbose
   post:
+    # copy junit test report to artifacts
+    - mkdir $CIRCLE_TEST_REPORTS/junit
+    - mv ./test/*.xml $CIRCLE_TEST_REPORTS/junit/testrun.xml
     # copy code coverage => build artifacts
     - mkdir $CIRCLE_ARTIFACTS/code-coverage
     - mv ./coverage/**/lcov-report/** $CIRCLE_ARTIFACTS/code-coverage
