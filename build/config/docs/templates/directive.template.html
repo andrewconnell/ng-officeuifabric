@@ -1,0 +1,11 @@
+> Directive
+
+{% block content %}
+  {$ doc.description | marked $}
+
+  {% if doc.see %}
+  Additional references:
+    {$ doc.see $}
+  {% endif %}
+
+{% endblock %}

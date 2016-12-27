@@ -11,4 +11,7 @@ reports/
 *.js
 *.js.map
 
+# no dynamically generated docs
+dist/docs
+
 !src/core/jquery.phantomjs.fix.js
