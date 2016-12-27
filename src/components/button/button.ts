@@ -1,23 +1,19 @@
 import * as angular from 'angular';
-import { ButtonTypeEnum } from './buttonTypeEnum';
-import { ButtonTemplateType } from './buttonTemplateType';
-
-export interface IButtonScope extends angular.IScope {
-  disabled: boolean;
-  uifType: string;
-}
-export interface IButtonAttributes extends angular.IAttributes {
-  uifType: string;
-  ngHref: string;
-  disabled: string;
-}
+import {
+  IButtonAttributes,
+  IButtonScope,
+  ButtonDescriptionDirective,
+  ButtonTypeEnum,
+  ButtonTemplateType
+} from '.';
 
 /**
- * @controller
  * @name ButtonController
  * @private
  * @description
  * Used to more easily inject the Angular $log service into the directive.
+ *
+ * @docs-private
  */
 class ButtonController {
   public static $inject: string[] = ['$log'];
@@ -26,7 +22,7 @@ class ButtonController {
 
 /**
  * @ngdoc directive
- * @name uifButton
+ * @name Button
  * @module officeuifabric.components.button
  *
  * @restrict E
@@ -38,40 +34,55 @@ class ButtonController {
  * rendered as a `<button>` or `<a>` element depending in an `ng-href` attribute is
  * specified. All buttons can be disabled by adding the `disabled` attribute
  *
- * @see {link http://dev.office.com/fabric/components/button}
+ * @see {@link http://dev.office.com/fabric/components/button Office UI Fabric React - Button}
+ * @see {@link https://github.com/OfficeDev/office-ui-fabric-js/blob/master/ghdocs/components/Button.md Office UI Fabric JS - Button}
  *
  * @usage
  *
  * Regular buttons:
+ * ```html
  * <uif-button>Lorem Ipsum</uif-button>
+ * ```
  *
  * Primary buttons:
+ * ```html
  * <uif-button uif-type="primary">Lorem Ipsum</uif-button>
+ * ```
  *
  * Disabled buttons:
+ * ```html
  * <uif-button disabled="disabled">Lorem Ipsum</uif-button>
+ * ```
  * or
+ * ```html
  * <uif-button ng-disabled="true">Lorem Ipsum</uif-button>
+ * ```
  *
  * Command buttons:
+ * ```html
  * <uif-button uif-type="command">Lorem Ipsum</uif-button>
  * <uif-button uif-type="command">
  *   <uif-icon uif-type="plus"></uif-icon>Lorem Ipsum
  * </uif-button>
+ * ```
  *
  * Compound buttons:
+ * ```html
  * <uif-button uif-type="Compound">Lorem Ipsum</uif-button>
  * <uif-button uif-type="Compound">
  *   Lorem Ipsum
  *   <uif-button-description>Lorem Ipsum Description</uif-button-description>
  * </uif-button>
+ * ```
  *
  * Hero buttons:
+ * ```html
  * <uif-button uif-type="Hero">Lorem Ipsum</uif-button>
  * <uif-button uif-type="Hero">
  *   <uif-icon uif-type="plus"></uif-icon>
  *   Lorem Ipsum
  * </uif-button>
+ * ```
  */
 export class ButtonDirective implements angular.IDirective {
 
@@ -101,7 +112,7 @@ export class ButtonDirective implements angular.IDirective {
       this.$log.error('Error [ngOfficeUiFabric] officeuifabric.components.button - Unsupported button: ' +
         'The button (\'' + $attrs.uifType + '\') is not supported by the Office UI Fabric. ' +
         'Supported options are listed here: ' +
-        'https://github.com/ngOfficeUIFabric/ng-officeuifabric/blob/master/src/components/button/buttonTypeEnum.ts');
+        'https://github.com/ngOfficeUIFabric/ng-officeuifabric/blob/master/src/components/button/buttonType.ts');
     }
 
     // determine template
@@ -297,50 +308,3 @@ export class ButtonDirective implements angular.IDirective {
       `<a class="ms-Button ms-Button--hero" ng-class="{\'is-disabled\': disabled}"></a>`;
   }
 }
-
-
-/**
- * @ngdoc directive
- * @name uifDescriptionButton
- * @module officeuifabric.components.button
- *
- * @restrict E
- *
- * @description
- * `<uif-button-description>` is a button description directive.
- *
- * @see {link http://dev.office.com/fabric/components/button}
- *
- * @usage
- *
- * <uif-button-description>Lorem Ipsum</uif-button-description>
- */
-export class ButtonDescriptionDirective implements angular.IDirective {
-
-  public restrict: string = 'E';
-  public require: string = '^uifButton';
-  public transclude: boolean = true;
-  public replace: boolean = true;
-  public scope: boolean = false;
-  public template: string = '<span class="ms-Button-description" ng-transclude></span>';
-
-  public static factory(): angular.IDirectiveFactory {
-    const directive: angular.IDirectiveFactory = () => new ButtonDescriptionDirective();
-    return directive;
-  }
-
-}
-
-/**
- * @ngdoc module
- * @name officeuifabric.components.button
- *
- * @description
- * Button
- *
- */
-export let module: angular.IModule = angular.module('officeuifabric.components.button', [
-  'officeuifabric.components'
-])
-  .directive('uifButton', ButtonDirective.factory())
-  .directive('uifButtonDescription', ButtonDescriptionDirective.factory());

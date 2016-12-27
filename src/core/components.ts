@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import * as breadcrumbModule from '../components/breadcrumb/breadcrumbDirective';
-import * as buttonModule from '../components/button/buttonDirective';
+//import * as buttonModule from '../components/button/buttonDirective';
+import { module as buttonModule } from '../components/button';
 import * as calloutModule from '../components/callout/calloutDirective';
 import * as choicefieldModule from '../components/choicefield/choicefieldDirective';
 import * as commandBarModule from '../components/commandbar/commandBarDirective';
@@ -42,7 +43,8 @@ import * as toggleModule from '../components/toggle/toggleDirective';
  */
 export let module: angular.IModule = angular.module('officeuifabric.components', [
   breadcrumbModule.module.name,
-  buttonModule.module.name,
+  //buttonModule.module.name,
+  buttonModule.name,
   calloutModule.module.name,
   choicefieldModule.module.name,
   commandBarModule.module.name,
