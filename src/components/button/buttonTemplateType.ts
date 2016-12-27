@@ -1,4 +1,5 @@
 /**
+ * @name ButtonTemplateType
  * @description
  * Enum for all possible button template types not public, only use within directive.
  *

@@ -1,5 +1,5 @@
 import * as angular from 'angular';
-import { ButtonTypeEnum } from '.';
+import { ButtonType } from '.';
 
 describe('buttonDirective: <uif-button />', () => {
 
@@ -120,7 +120,7 @@ describe('buttonDirective: <uif-button />', () => {
       let html: string = '';
 
       // create buttons for each enum option
-      Object.keys(ButtonTypeEnum)
+      Object.keys(ButtonType)
         .forEach((buttonType: string) => {
           html = '<uif-button uif-type="' + buttonType + '">Lorem Ipsum</uif-button>';
           $compile(html)(scope);
@@ -552,7 +552,7 @@ describe('buttonDirective: <uif-button />', () => {
       let html: string = '';
       // for all enum options...
       // check no error when no type specified
-      Object.keys(ButtonTypeEnum)
+      Object.keys(ButtonType)
         .forEach((buttonType: string) => {
           html = '<uif-button uif-type="' + buttonType + '" ng-href="http://ngOfficeUiFabric.com">Lorem Ipsum</uif-button>';
           $compile(html)(scope);

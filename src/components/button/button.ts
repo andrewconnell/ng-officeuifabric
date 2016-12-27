@@ -3,7 +3,7 @@ import {
   IButtonAttributes,
   IButtonScope,
   ButtonDescriptionDirective,
-  ButtonTypeEnum,
+  ButtonType,
   ButtonTemplateType
 } from '.';
 
@@ -108,7 +108,7 @@ export class ButtonDirective implements angular.IDirective {
 
   public template: any = ($element: angular.IAugmentedJQuery, $attrs: IButtonAttributes) => {
     // verify button type is supported
-    if (!angular.isUndefined($attrs.uifType) && angular.isUndefined(ButtonTypeEnum[$attrs.uifType])) {
+    if (!angular.isUndefined($attrs.uifType) && angular.isUndefined(ButtonType[$attrs.uifType])) {
       this.$log.error('Error [ngOfficeUiFabric] officeuifabric.components.button - Unsupported button: ' +
         'The button (\'' + $attrs.uifType + '\') is not supported by the Office UI Fabric. ' +
         'Supported options are listed here: ' +
@@ -118,22 +118,22 @@ export class ButtonDirective implements angular.IDirective {
     // determine template
     switch ($attrs.uifType) {
       // if hero, return button | link
-      case ButtonTypeEnum[ButtonTypeEnum.primary]:
+      case ButtonType[ButtonType.primary]:
         return angular.isUndefined($attrs.ngHref)
           ? this.templateOptions[ButtonTemplateType.primaryButton]
           : this.templateOptions[ButtonTemplateType.primaryLink];
       // if command, return button | link
-      case ButtonTypeEnum[ButtonTypeEnum.command]:
+      case ButtonType[ButtonType.command]:
         return angular.isUndefined($attrs.ngHref)
           ? this.templateOptions[ButtonTemplateType.commandButton]
           : this.templateOptions[ButtonTemplateType.commandLink];
       // if compound, return button | link
-      case ButtonTypeEnum[ButtonTypeEnum.compound]:
+      case ButtonType[ButtonType.compound]:
         return angular.isUndefined($attrs.ngHref)
           ? this.templateOptions[ButtonTemplateType.compoundButton]
           : this.templateOptions[ButtonTemplateType.compoundLink];
       // if hero, return button | link
-      case ButtonTypeEnum[ButtonTypeEnum.hero]:
+      case ButtonType[ButtonType.hero]:
         return angular.isUndefined($attrs.ngHref)
           ? this.templateOptions[ButtonTemplateType.heroButton]
           : this.templateOptions[ButtonTemplateType.heroLink];
@@ -190,8 +190,8 @@ export class ButtonDirective implements angular.IDirective {
     // if an icon was added to the button's contents for specific button types
     //  that don't support icons, remove the icon
     if (angular.isUndefined(attrs.uifType) ||
-      attrs.uifType === ButtonTypeEnum[ButtonTypeEnum.primary] ||
-      attrs.uifType === ButtonTypeEnum[ButtonTypeEnum.compound]) {
+      attrs.uifType === ButtonType[ButtonType.primary] ||
+      attrs.uifType === ButtonType[ButtonType.compound]) {
       let iconElement: JQuery = element.find('uif-icon');
       if (iconElement.length !== 0) {
         iconElement.remove();
@@ -208,7 +208,7 @@ export class ButtonDirective implements angular.IDirective {
 
       switch (attrs.uifType) {
         // if type === command
-        case ButtonTypeEnum[ButtonTypeEnum.command]:
+        case ButtonType[ButtonType.command]:
           for (let i: number = 0; i < clone.length; i++) {
             // wrap the button label
             if (clone[i].tagName === 'SPAN') {
@@ -225,7 +225,7 @@ export class ButtonDirective implements angular.IDirective {
           }
           break;
         // if type === compound
-        case ButtonTypeEnum[ButtonTypeEnum.compound]:
+        case ButtonType[ButtonType.compound]:
           for (let i: number = 0; i < clone.length; i++) {
             // if not a span, stop checkiangular...
             if (clone[i].tagName !== 'SPAN') {
@@ -245,7 +245,7 @@ export class ButtonDirective implements angular.IDirective {
           }
           break;
         // if type === hero
-        case ButtonTypeEnum[ButtonTypeEnum.hero]:
+        case ButtonType[ButtonType.hero]:
           for (let i: number = 0; i < clone.length; i++) {
             // wrap the label
             if (clone[i].tagName === 'SPAN') {

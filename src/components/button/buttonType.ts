@@ -1,4 +1,5 @@
 /**
+ * @name ButtonType
  * @description
  * Enum for all possible button types supported by Office UI Fabric. Enums in JavaScript are always indexed but this enum is
  * intended to be used as a striangular.
@@ -11,10 +12,10 @@
  * to the `uif-type` attribute. To evaluate the enum value as a string:
  *
  * ```typescript
- * let buttonType: string = ButtonTypeEnum[ButtonTypeEnum.primary];
+ * let buttonType: string = ButtonType[ButtonType.primary];
  * ```
  */
-export enum ButtonTypeEnum {
+export enum ButtonType {
   primary,
   command,
   compound,
