@@ -2,7 +2,6 @@ import * as angular from 'angular';
 import {
   IButtonAttributes,
   IButtonScope,
-  ButtonDescriptionDirective,
   ButtonType,
   ButtonTemplateType
 } from '.';
@@ -308,3 +307,52 @@ export class ButtonDirective implements angular.IDirective {
       `<a class="ms-Button ms-Button--hero" ng-class="{\'is-disabled\': disabled}"></a>`;
   }
 }
+
+/**
+ * @ngdoc directive
+ * @name ButtonDescription
+ * @module officeuifabric.components.button
+ *
+ * @restrict E
+ *
+ * @description
+ * `<uif-button-description>` is a button description directive.
+ *
+ * @see {@link Button} for parent directive
+ *
+ * @usage
+ *
+ * ```html
+ * <uif-button-description>Lorem Ipsum</uif-button-description>
+ * ```
+ *
+ */
+export class ButtonDescriptionDirective implements angular.IDirective {
+
+  public restrict: string = 'E';
+  public require: string = '^uifButton';
+  public transclude: boolean = true;
+  public replace: boolean = true;
+  public scope: boolean = false;
+  public template: string = '<span class="ms-Button-description" ng-transclude></span>';
+
+  public static factory(): angular.IDirectiveFactory {
+    const directive: angular.IDirectiveFactory = () => new ButtonDescriptionDirective();
+    return directive;
+  }
+
+}
+
+/**
+ * @ngdoc module
+ * @name officeuifabric.components.button
+ *
+ * @description
+ * Button module.
+ *
+ */
+export let module: angular.IModule = angular.module('officeuifabric.components.button', [
+  'officeuifabric.components'
+])
+  .directive('uifButton', ButtonDirective.factory())
+  .directive('uifButtonDescription', ButtonDescriptionDirective.factory());
