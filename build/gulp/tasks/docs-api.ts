@@ -2,11 +2,10 @@ import { BaseGulpTask } from '../BaseGulpTask';
 import { BuildConfig } from '../../config/build';
 import * as gulp from 'gulp';
 import * as runSequence from 'run-sequence';
-let $: any = require('gulp-load-plugins')({ lazy: true });
-const hljs: any = require('highlight.js');
+let dgeni: any = require('dgeni');
 
 /**
- * Creates documentation for directives from markdown files
+ * Creates API documentation for directives.
  *
  * @class
  */
@@ -15,7 +14,7 @@ export class GulpTask extends BaseGulpTask {
   /**
    * @property  {string}  description   - Help description for the task.
    */
-  public static description: string = 'Creates documentation for directives from markdown files';
+  public static description: string = 'Creates API documentation for directives';
 
   /**
    * @property  {string[]}  aliases   - Different options to run the task.
@@ -36,20 +35,12 @@ export class GulpTask extends BaseGulpTask {
   constructor(done: gulp.TaskCallback) {
     super();
 
-    return gulp.src(['src/core/**/*.md', 'src/components/**/*.md', 'content/guide/*.md'])
-      .pipe($.markdown({
-        // add syntax highlight using highlight.js
-        highlight: (code: string, language: string) => {
-          if (language) {
-            // highlight.js expects "typescript" written out, while Github supports "ts".
-            let lang: string = language.toLowerCase() === 'ts' ? 'typescript' : language;
-            return hljs.highlight(lang, code).value;
-          }
+    // todo: delete prior generated docs
 
-          return code;
-        }
-      }))
-      .pipe(gulp.dest('dist/docs'));
+    // create instance of generator and create docs
+    let dg: any = new dgeni([require('../../config/dgeni.js')]);
+    return dg.generate().then();
+
   }
 
 }

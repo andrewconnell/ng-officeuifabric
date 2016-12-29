@@ -3,7 +3,6 @@
  *
  * Any symbol with @docs-private wil be excluded.
  */
-
 module.exports = function docsPrivateFilter(): any {
   return {
     $process: (docs: any) => {
@@ -15,6 +14,5 @@ module.exports = function docsPrivateFilter(): any {
 
 function hasDocsPrivateTag(doc: any): boolean {
   let tags: any = doc.tags && doc.tags.tags;
-  console.log('tags', tags);
   return tags ? tags.find(d => d.tagName === 'docs-private') : false;
 }
