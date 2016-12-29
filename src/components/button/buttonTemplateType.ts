@@ -1,10 +1,10 @@
 /**
+ * @ngdoc enum
  * @name ButtonTemplateType
  * @description
- * Enum for all possible button template types not public, only use within directive.
+ * Enum for all possible button template types. This is not intended to be used outside of the directive.
+ * It is used internally to determine the template to use.
  *
- * @readonly
- * @private
  * @enum {string}
  *
  * @docs-private

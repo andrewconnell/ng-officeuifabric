@@ -6,7 +6,6 @@ import * as angular from 'angular';
  * @description
  * Public properties that can set on the button directive.
  *
- * @export
  * @interface IButtonScope
  * @extends {angular.IScope}
  */

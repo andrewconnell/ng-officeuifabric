@@ -36,6 +36,14 @@ class ButtonController {
  * @see {@link http://dev.office.com/fabric/components/button Office UI Fabric React - Button}
  * @see {@link https://github.com/OfficeDev/office-ui-fabric-js/blob/master/ghdocs/components/Button.md Office UI Fabric JS - Button}
  *
+ * @property {IButtonScope} scope - directive scope.
+ *
+ * @docs-include {IButtonScope}
+ * @docs-include {IButtonAttributes}
+ * @docs-include {ButtonType}
+ *
+ * @docs-navSection buttons-indicators-icons
+ *
  * @usage
  *
  * Regular buttons:
@@ -88,7 +96,7 @@ export class ButtonDirective implements angular.IDirective {
   public restrict: string = 'E';
   public transclude: boolean = true;
   public replace: boolean = true;
-  public scope: {} = {};
+  public scope: any = {};
   public controller: any = ButtonController;
   public controllerAs: string = 'button';
 
