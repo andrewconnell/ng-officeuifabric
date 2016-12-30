@@ -1,0 +1,16 @@
+<h1>Module: {$ doc.name $}</h1>
+
+{$ doc.description | marked $}
+
+<h3>Code:</h3>
+Source code: <code><a href="https://github.com/ngOfficeUIFabric/ng-officeuifabric/tree/master/src/{$ doc.fileInfo.projectRelativePath $}#L{$ doc.location.start.line $}-L{$ doc.location.end.line $}">src/{$ doc.fileInfo.projectRelativePath $}</a></code>
+
+{% if doc.docsReferences.length %}
+  <!-- add angular directives for "SEE ALSO" things -->
+  <h3>Related Symbols:</h3>
+  <ul>
+  {% for docReference in doc.docsReferences %}
+    <li><nguif-referencedoc symbol-doc="{$ docReference | replace('{','') | replace('}','') $}" include-inline="false"></nguif-referencedoc></li>
+  {%- endfor -%}
+  </ul>
+{% endif %}

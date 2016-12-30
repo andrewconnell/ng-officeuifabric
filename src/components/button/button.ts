@@ -42,11 +42,11 @@ class ButtonController {
  * @see {@link http://dev.office.com/fabric/components/button Office UI Fabric React - Button}
  * @see {@link https://github.com/OfficeDev/office-ui-fabric-js/blob/master/ghdocs/components/Button.md Office UI Fabric JS - Button}
  *
- * @property {IButtonScope} scope - directive scope.
+ * @property {IButtonScope} scope - Angular scope of the directive
  *
- * @docs-include {IButtonScope}
- * @docs-include {IButtonAttributes}
- * @docs-include {ButtonType}
+ * @docs-reference {IButtonScope}
+ * @docs-reference {IButtonAttributes}
+ * @docs-reference {ButtonType}
  *
  * @docs-navSection buttons-indicators-icons
  *
@@ -60,15 +60,6 @@ class ButtonController {
  * Primary buttons:
  * ```html
  * <uif-button uif-type="primary">Lorem Ipsum</uif-button>
- * ```
- *
- * Disabled buttons:
- * ```html
- * <uif-button disabled="disabled">Lorem Ipsum</uif-button>
- * ```
- * or
- * ```html
- * <uif-button ng-disabled="true">Lorem Ipsum</uif-button>
  * ```
  *
  * Command buttons:
@@ -95,6 +86,15 @@ class ButtonController {
  *   <uif-icon uif-type="plus"></uif-icon>
  *   Lorem Ipsum
  * </uif-button>
+ * ```
+ *
+ * Disabled buttons:
+ * ```html
+ * <uif-button disabled="disabled">Lorem Ipsum</uif-button>
+ * ```
+ * or
+ * ```html
+ * <uif-button ng-disabled="true">Lorem Ipsum</uif-button>
  * ```
  */
 export class ButtonDirective implements angular.IDirective {
@@ -362,8 +362,10 @@ export class ButtonDescriptionDirective implements angular.IDirective {
  * @name officeuifabric.components.button
  *
  * @description
- * Button module.
+ * Angular `Button` module that contains the following directives: `Button` & `ButtonDescription`.
  *
+ * @docs-reference {Button}
+ * @docs-reference {ButtonDescription}
  */
 export let module: angular.IModule = angular.module('officeuifabric.components.button', [
   'officeuifabric.components'

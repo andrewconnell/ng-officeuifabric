@@ -18,7 +18,7 @@ const dgeniPackageDeps: any[] = [
 
 const projectRootDir: string = path.resolve(__dirname, '../..');
 const sourceDir: string = path.resolve(projectRootDir, 'src');
-const outputDir: string = path.resolve(projectRootDir, 'dist/docs');
+const outputDir: string = path.resolve(projectRootDir, 'dist/docs/api');
 const templateDir: string = path.resolve(projectRootDir, 'build/config/docs/templates');
 
 const privateTagProcessor: string = path.resolve(projectRootDir, 'build/config/docs/processors/docs-private-filter.js');
@@ -41,9 +41,9 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
     parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat([
       // custom tag used to see what is included
       {
-        docProperty: 'docsIncludes',
+        docProperty: 'docsReferences',
         multi: true,
-        name: 'docs-include'
+        name: 'docs-reference'
       },
       // flag indicating if should be included in primary nav
       {
@@ -64,16 +64,9 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
   .config((templateFinder, templateEngine) => {
     // specify where the templates are located
     templateFinder.templateFolders = [templateDir];
-    console.log('templateFinder.templateFolders', templateFinder.templateFolders);
 
     // standard patterns for matching docs to templates
-    templateFinder.templatePatterns = [
-      '${ doc.template }',
-      '${ doc.id }.${ doc.docType }.template.html',
-      '${ doc.id }.template.html',
-      '${ doc.docType }.template.nunjucks',
-      'common.template.html'
-    ];
+    templateFinder.templatePatterns = ['${ doc.docType }.template.nunjucks'];
 
     // dgeni disables autoescape by default, but we want this turned on.
     templateEngine.config.autoescape = false;
@@ -121,13 +114,13 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
         pathTemplate: '${name}'
       },
       {
-        docTypes: ['modules'],
+        docTypes: ['module'],
         outputPathTemplate: '${docType}s/${name}.html',
         pathTemplate: '${name}'
       },
       {
         docTypes: ['interface', 'enum'],
-        outputPathTemplate: 'non-directives/${name}.html',
+        outputPathTemplate: '${name}.html',
         pathTemplate: '${name}'
       }
     ];
@@ -158,7 +151,6 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
 
   // configure the processor for understanding TypeScript.
   .config(function (readTypeScriptModules: any): void {
-    console.log('sourceDir', sourceDir);
     readTypeScriptModules.basePath = sourceDir;
     readTypeScriptModules.ignoreExportsMatching = [/^_/];
     readTypeScriptModules.hidePrivateMembers = true;

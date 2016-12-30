@@ -13,7 +13,6 @@ module.exports = function docsPrivateFilter(): any {
 };
 
 function hasDocsPrivateTag(doc: any): boolean {
-  console.log('doc', doc);
   let tags: any = doc.tags && doc.tags.tags;
   return tags ? tags.find(d => d.tagName === 'docs-private') : false;
 }

@@ -1,0 +1,59 @@
+<h1>{$ doc.name $}</h1>
+
+{$ doc.description | marked $}
+
+{% if doc.extends %}
+<h3>Extends:</h3>
+{$ doc.extends $}
+{% endif %}
+
+{% if doc.members.length %}
+<h3>Members:</h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Required?</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for member in doc.members %}
+    <tr>
+      <td align="right"><code>{$ member.name $}</code></td>
+      <td>{$ member.content | marked $}</td>
+      <td align="center"><code>{$ member.returnType $}</code></td>
+      <td align="center">{% if member.optional %}YES{% endif %}</td>
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if doc.usage %}
+<h3>Usage:</h3>
+{$ doc.usage | marked $}
+{% endif %}
+
+{% if doc.see.length %}
+  <h3>Reference Links:</h3>
+  <ul>
+    {%- for externalReference in doc.see %}
+    <li>{$ externalReference $}</li>
+    {%- endfor %}
+  </ul>
+{% endif %}
+
+<h3>Code:</h3>
+Source code: <code><a href="https://github.com/ngOfficeUIFabric/ng-officeuifabric/tree/master/src/{$ doc.fileInfo.projectRelativePath $}#L{$ doc.location.start.line $}-L{$ doc.location.end.line $}">src/{$ doc.fileInfo.projectRelativePath $}</a></code>
+
+{% if doc.docsReferences.length %}
+  <!-- add angular directives for "SEE ALSO" things -->
+  <h3>Related Symbols:</h3>
+  <ul>
+  {% for docReference in doc.docsReferences %}
+    <li><nguif-referencedoc symbol-doc="{$ docReference | replace('{','') | replace('}','') $}" include-inline="false"></nguif-referencedoc></li>
+  {%- endfor -%}
+  </ul>
+{% endif %}

@@ -1,0 +1,40 @@
+<h1>{$ doc.name $}</h1>
+
+{$ doc.description | marked $}
+
+{% if doc.members.length %}
+<h3>Members:</h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for member in doc.members %}
+    <tr>
+      <td align="right"><code>{$ member.name $}</code></td>
+      <td>{$ member.content $}</td>
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if doc.usage %}
+<h3>Usage:</h3>
+{$ doc.usage | marked $}
+{% endif %}
+
+{% if doc.see.length %}
+  <h3>Related Links:</h3>
+  <ul>
+    {%- for externalReference in doc.see %}
+    <li>{$ externalReference $}</li>
+    {%- endfor %}
+  </ul>
+{% endif %}
+
+<h3>Code:</h3>
+Source code: <code><a href="https://github.com/ngOfficeUIFabric/ng-officeuifabric/tree/master/src/{$ doc.fileInfo.projectRelativePath $}#L{$ doc.location.start.line $}-L{$ doc.location.end.line $}">src/{$ doc.fileInfo.projectRelativePath $}</a></code>

@@ -9,8 +9,30 @@
 <h3>Module:</h3>
 <code>{$ doc.module $}</code>
 
+{% if doc.properties %}
+  <h3>Properties:</h3>
+  <table border="1">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Description</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%- for property in doc.properties %}
+      <tr>
+        <td><code>{$ property.name $}</code></td>
+        <td>{$ property.description $}</td>
+        <td><code>{$ property.typeExpression $}</code></td>
+      </tr>
+    {%- endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
 {% if doc.restrict %}
-  <h3>Implementation:</h3>
+  <h3>Restrictions:</h3>
   This directive is restricted to the following implementations:
   <table border="1">
     <tbody>
@@ -34,8 +56,13 @@
   </table>
 {% endif %}
 
+{% if doc.usage %}
+<h3>Usage:</h3>
+{$ doc.usage | marked $}
+{% endif %}
+
 {% if doc.see.length %}
-  <h3>Reference Links:</h3>
+  <h3>Related Links:</h3>
   <ul>
     {%- for externalReference in doc.see %}
     <li>{$ externalReference $}</li>
@@ -46,11 +73,11 @@
 <h3>Code:</h3>
 Source code: <code><a href="https://github.com/ngOfficeUIFabric/ng-officeuifabric/tree/master/src/{$ doc.fileInfo.projectRelativePath $}#L{$ doc.location.start.line $}-L{$ doc.location.end.line $}">src/{$ doc.fileInfo.projectRelativePath $}</a></code>
 
-{% if doc.docsIncludes.length %}
+{% if doc.docsReferences.length %}
   <!-- add angular directives for "SEE ALSO" things -->
   <h3>Related Symbols:</h3>
   This directive makes use of the following symbols:
-  {% for docInclude in doc.docsIncludes %}
-  <nguif-includedoc symbol-doc="{$ docInclude | replace('{','') | replace('}','') $}"></nguif-includedoc>
+  {% for docReference in doc.docsReferences %}
+  <nguif-referencedoc symbol-doc="{$ docReference | replace('{','') | replace('}','') $}" include-inline="true"></nguif-referencedoc>
   {%- endfor -%}
 {% endif %}
