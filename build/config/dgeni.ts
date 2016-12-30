@@ -41,12 +41,15 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
     parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat([
       // custom tag used to see what is included
       {
-        docProperty: 'docs-include',
+        docProperty: 'docsIncludes',
         multi: true,
         name: 'docs-include'
       },
       // flag indicating if should be included in primary nav
-      { name: 'docs-navSection' },
+      {
+        docProperty: 'docNavSection',
+        name: 'docs-navSection'
+      },
       // custom tag used by processor `docs-private-filter`
       { name: 'docs-private' },
       // these tags aren't supported by dgeni
@@ -68,18 +71,18 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
       '${ doc.template }',
       '${ doc.id }.${ doc.docType }.template.html',
       '${ doc.id }.template.html',
-      '${ doc.docType }.template.html',
+      '${ doc.docType }.template.nunjucks',
       'common.template.html'
     ];
 
     // dgeni disables autoescape by default, but we want this turned on.
-    templateEngine.config.autoescape = true;
+    templateEngine.config.autoescape = false;
 
-    // Nunjucks and Angular conflict in their template bindings so change Nunjucks
-    // templateEngine.config.tags = {
-    //   variableEnd: '$}',
-    //   variableStart: '{$'
-    // };
+    // nunjucks and Angular conflict in their template bindings so change Nunjucks
+    templateEngine.config.tags = {
+      variableEnd: '$}',
+      variableStart: '{$'
+    };
   })
 
   // tell DGeni which files we want to process & where to output them
@@ -111,11 +114,23 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
     // here we are defining what to output for our docType Module
 
     // configure the output path for written files (i.e., file names).
-    computePathsProcessor.pathTemplates = [{
-      docTypes: ['directive', 'interface', 'enum'],
-      outputPathTemplate: '${docType}s/${name}.html',
-      pathTemplate: '${name}'
-    }];
+    computePathsProcessor.pathTemplates = [
+      {
+        docTypes: ['directive'],
+        outputPathTemplate: '${docType}s/${name}.html',
+        pathTemplate: '${name}'
+      },
+      {
+        docTypes: ['modules'],
+        outputPathTemplate: '${docType}s/${name}.html',
+        pathTemplate: '${name}'
+      },
+      {
+        docTypes: ['interface', 'enum'],
+        outputPathTemplate: 'non-directives/${name}.html',
+        pathTemplate: '${name}'
+      }
+    ];
 
     // setup the computePathsProcessor to output the files to HTML partials
 

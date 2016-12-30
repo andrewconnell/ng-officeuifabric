@@ -1,0 +1,56 @@
+{% if doc.docNavSection %}
+<!-- navSection: {$ doc.docNavSection $} -->
+{% endif %}
+
+<h1>{$ doc.name $}</h1>
+
+{$ doc.description | marked $}
+
+<h3>Module:</h3>
+<code>{$ doc.module $}</code>
+
+{% if doc.restrict %}
+  <h3>Implementation:</h3>
+  This directive is restricted to the following implementations:
+  <table border="1">
+    <tbody>
+      <tr>
+        <td><strong>Element</strong></td>
+        <td>{% if doc.restrict.element %}YES{% else %}NO{% endif %}</td>
+      </tr>
+      <tr>
+        <td><strong>Attribute</strong></td>
+        <td>{% if doc.restrict.attribute %}YES{% else %}NO{% endif %}</td>
+      </tr>
+      <tr>
+        <td><strong>CSS Class</strong></td>
+        <td>{% if doc.restrict.cssClass %}YES{% else %}NO{% endif %}</td>
+      </tr>
+      <tr>
+        <td><strong>Comment</strong></td>
+        <td>{% if doc.restrict.comment %}YES{% else %}NO{% endif %}</td>
+      </tr>
+    </tbody>
+  </table>
+{% endif %}
+
+{% if doc.see.length %}
+  <h3>Reference Links:</h3>
+  <ul>
+    {%- for externalReference in doc.see %}
+    <li>{$ externalReference $}</li>
+    {%- endfor %}
+  </ul>
+{% endif %}
+
+<h3>Code:</h3>
+Source code: <code><a href="https://github.com/ngOfficeUIFabric/ng-officeuifabric/tree/master/src/{$ doc.fileInfo.projectRelativePath $}#L{$ doc.location.start.line $}-L{$ doc.location.end.line $}">src/{$ doc.fileInfo.projectRelativePath $}</a></code>
+
+{% if doc.docsIncludes.length %}
+  <!-- add angular directives for "SEE ALSO" things -->
+  <h3>Related Symbols:</h3>
+  This directive makes use of the following symbols:
+  {% for docInclude in doc.docsIncludes %}
+  <nguif-includedoc symbol-doc="{$ docInclude | replace('{','') | replace('}','') $}"></nguif-includedoc>
+  {%- endfor -%}
+{% endif %}

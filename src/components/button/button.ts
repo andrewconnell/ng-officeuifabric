@@ -28,10 +28,16 @@ class ButtonController {
  *
  * @description
  * `<uif-button>` is a button directive. This direcive implements multiple types
- * of buttons including action, primary, command, compound and hero buttons. Each type
- * may also support inclusion of icons using the `<uif-icon>` directive. Buttons are
- * rendered as a `<button>` or `<a>` element depending in an `ng-href` attribute is
- * specified. All buttons can be disabled by adding the `disabled` attribute
+ * of buttons including action, primary, command, compound and hero buttons. Specify the
+ * type of the button to render using the `uif-type` attribute. Possible values are defined
+ * in the `ButtonType` enumeration. When `uif-type` is not specified, a normal button is assumed.
+ *
+ * Each button type supports inclusion of icons using the `<uif-icon>` directive.
+ *
+ * By default buttons are rendered as a `<button>` unless the attribute `ng-href` is
+ * present where in that case, the button is rendered as an `<a>` element.
+ *
+ * All button types can be disabled by adding the `disabled` attribute.
  *
  * @see {@link http://dev.office.com/fabric/components/button Office UI Fabric React - Button}
  * @see {@link https://github.com/OfficeDev/office-ui-fabric-js/blob/master/ghdocs/components/Button.md Office UI Fabric JS - Button}
@@ -324,9 +330,9 @@ export class ButtonDirective implements angular.IDirective {
  * @restrict E
  *
  * @description
- * `<uif-button-description>` is a button description directive.
- *
- * @see {@link Button} for parent directive
+ * `<uif-button-description>` is a button description directive. This directive is designed to be nested
+ * within the `uif-button` directive. Use of this directive outside of the context of the `uif-button` is
+ * not supported. Refer to the `uif-button` directive for full usage.
  *
  * @usage
  *
