@@ -294,7 +294,7 @@ One option to update your repo is to delete your fork & refork... but if you hav
 
 Before doing anything, update your dev & master branches:
 
-  ```shell
+  ```bash
   git checkout dev
   git pull --rebase upstream dev
   git checkout master
@@ -305,14 +305,14 @@ To update your folder for the Typings update...
 
 1. Update Typings to v1:
 
-  ```shell
+  ```bash
   npm install -g typings
   ```
 
 1. Delete the old `/typings` folder (as it will have extra folders you don't need
 1. Recreate the typings folder:
 
-  ```shell
+  ```bash
   typings install
   ```
 
@@ -323,7 +323,7 @@ To update NPM with the current modules...
 1. Delete the NPM `/node_modules` folder
 1. Reinstall the specific NPM package versions:
 
-  ```shell
+  ```bash
   npm install
   ```
 

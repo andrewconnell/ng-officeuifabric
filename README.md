@@ -43,7 +43,7 @@ Other than manually downloading the library, **ng-OfficeUIFabric** will be avail
 
 Install the library (which should also download the [Angular](http://bower.io/search/?q=angular) & [office-ui-fabric](http://bower.io/search/?q=office-ui-fabric) dependent libraries:
 
-```shell
+```bash
 bower install ng-office-ui-fabric --save
 ```
 
@@ -51,7 +51,7 @@ bower install ng-office-ui-fabric --save
 
 Install the library (which should also download the [Angular](https://www.npmjs.com/package/angular) & [office-ui-fabric](https://www.npmjs.com/package/office-ui-fabric) dependent libraries:
 
-```shell
+```bash
 npm install ng-office-ui-fabric --save
 ```
 
@@ -59,7 +59,7 @@ npm install ng-office-ui-fabric --save
 
 Install the library (which should also download the [AngularJS.Core](https://www.nuget.org/packages/ng-office-ui-fabric) & [OfficeUiFabric](https://www.nuget.org/packages/OfficeUIFabric/) dependent libraries.
 
-```shell
+```bash
 Install-Package ng-office-ui-fabric
 ```
 

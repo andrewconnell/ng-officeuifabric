@@ -13,7 +13,7 @@ This describes the guidelines developer should follow to run & create tests.
 
 Run all tests using the provided gulp task **test**:
 
-```shell
+```bash
 $ gulp test
 ```
 
@@ -23,12 +23,13 @@ This includes two Karma reporters:
 
 To view each test that's run, use the `--specs` argument:
 
-```shell
+```bash
 $ gulp test --specs
 ```
 
 This will replace the **progress** reporter with the **spec** reporter and write each test & outcome to the console.
-```shell
+
+```bash
 $ gulp test --watch
 ```
 This will setup watcher and open Chrome for convenient debugging.

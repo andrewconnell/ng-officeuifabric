@@ -21,7 +21,7 @@ Before you submit your pull request consider the following guidelines:
   - [AC: Keep Your Forked Git Repo Updated with Changes from the Original Upstream Repo](http://www.andrewconnell.com/blog/keep-your-forked-git-repo-updated-with-changes-from-the-original-upstream-repo)
   - Looking for a quick cheat sheet? Look no further:
 
-    ```shell
+    ```bash
     # assuming you are in the folder of your locally cloned fork....
     git checkout dev
 
@@ -66,7 +66,7 @@ To do this, assuming you are in the branch where you were working on a fix or fe
 
 - First enter an interactive git session, looking at all your commits since you forked from the `dev` branch:
 
-  ```shell
+  ```bash
   git rebase -i dev
   ```
 

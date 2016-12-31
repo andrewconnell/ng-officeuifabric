@@ -304,7 +304,7 @@ Include example usage for each directive. This example should be able to be run 
 
 The folder organization should look like the following:
 
-  ```shell
+  ```bash
   .
   ├── demo
   │   ├── index.html

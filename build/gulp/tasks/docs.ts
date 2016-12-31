@@ -1,7 +1,8 @@
 import { BaseGulpTask } from '../BaseGulpTask';
 import { BuildConfig } from '../../config/build';
 import * as gulp from 'gulp';
-import * as runSequence from 'run-sequence';
+import gulpMerge = require('merge-stream');
+import gulpRename = require('gulp-rename');
 let $: any = require('gulp-load-plugins')({ lazy: true });
 const hljs: any = require('highlight.js');
 
@@ -36,20 +37,36 @@ export class GulpTask extends BaseGulpTask {
   constructor(done: gulp.TaskCallback) {
     super();
 
-    return gulp.src(['src/core/**/*.md', 'src/components/**/*.md', 'content/guide/*.md'])
-      .pipe($.markdown({
-        // add syntax highlight using highlight.js
-        highlight: (code: string, language: string) => {
-          if (language) {
-            // highlight.js expects "typescript" written out, while Github supports "ts".
-            let lang: string = language.toLowerCase() === 'ts' ? 'typescript' : language;
-            return hljs.highlight(lang, code).value;
-          }
-
+    let markdownOptions: any = {
+      // add syntax highlight using highlight.js
+      highlight: (code: string, language: string) => {
+        if (language) {
+          // highlight.js expects "typescript" written out, while Github supports "ts".
+          let lang: string = language.toLowerCase() === 'ts' ? 'typescript' : language;
+          return hljs.highlight(lang, code).value;
+        } else {
           return code;
         }
+      }
+    };
+
+    // convert directive docs
+    let sourceDocs: NodeJS.ReadWriteStream = gulp.src(['./src/components/**/*.md'])
+      .pipe($.markdown(markdownOptions))
+      .pipe($.rename((path: gulpRename.ParsedPath) => {
+        // set basename to dirname (the name of the component)
+        path.basename = path.dirname;
+        // remove subdirectory where doc came from
+        path.dirname = '';
       }))
-      .pipe(gulp.dest('dist/docs'));
+      .pipe(gulp.dest('dist/docs/directives'));
+
+    // convert guide docs
+    let contentDocs: NodeJS.ReadWriteStream = gulp.src(['docs/*.md'])
+      .pipe($.markdown(markdownOptions))
+      .pipe(gulp.dest('dist/docs/content'));
+
+    return gulpMerge(sourceDocs, contentDocs);
   }
 
 }

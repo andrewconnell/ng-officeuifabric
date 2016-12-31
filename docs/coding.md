@@ -12,7 +12,7 @@
 
 The components within the ngOfficeUIFabric are organized as follows:
 
-```
+```bash
 /src
 ├── components
 │   ├── <component folder>
