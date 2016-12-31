@@ -5,7 +5,7 @@ export class BuildConfig {
   public static NODE_MODULES: string = 'node_modules';
   public static BUILD_PATH: string = BuildConfig.ROOT + '/build';
   public static GULP_TASKS: string = BuildConfig.BUILD_PATH + '/gulp/tasks';
-  public static SOURCE: string = BuildConfig.ROOT + '/src';
+  public static SOURCE: string = BuildConfig.ROOT + '/src/lib';
 
   // get version number
   /* tslint:disable:no-string-literal */
@@ -98,16 +98,16 @@ export class BuildConfig {
     BuildConfig.NODE_MODULES + '/pickadate/lib/picker.js',
     BuildConfig.NODE_MODULES + '/pickadate/lib/picker.date.js',
     BuildConfig.NODE_MODULES + '/jasmine-jquery/lib/jasmine-jquery.js',
-    'src/core/jquery.phantomjs.fix.js',
-    'src/core/*.js'
+    'src/lib/core/jquery.phantomjs.fix.js',
+    'src/lib/core/*.js'
   ];
   /**
    * All test files.
    */
   public static ALL_SPEC_FILES: string[] = [
-    'src/components/*/!(*.spec|contextualMenu|navbarDirective).js',
-    'src/components/navbar/navbarDirective.js',
-    'src/components/contextualmenu/contextualMenu.js',
-    'src/components/*/*.spec.js'
+    'src/lib/components/*/!(*.spec|contextualMenu|navbarDirective).js',
+    'src/lib/components/navbar/navbarDirective.js',
+    'src/lib/components/contextualmenu/contextualMenu.js',
+    'src/lib/components/*/*.spec.js'
   ];
 }

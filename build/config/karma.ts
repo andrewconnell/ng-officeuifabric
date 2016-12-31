@@ -45,7 +45,7 @@ module.exports = (config: karma.Config) => {
     plugins: ['karma-*'],
     port: 5793,
     preprocessors: {
-      'src/**/*.js': ['webpack', 'sourcemap']
+      'src/lib/**/*.js': ['webpack', 'sourcemap']
     },
     reporters: ['junit', 'progress', 'coverage'],
     singleRun: false,

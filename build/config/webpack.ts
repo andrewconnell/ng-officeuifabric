@@ -1,3 +1,4 @@
+import { BuildConfig } from './build';
 import * as webpack from 'webpack';
 
 /**
@@ -57,7 +58,7 @@ export class WebPackConfig implements webpack.Configuration {
 
   public resolve: any = {
     extensions: ['', '.ts', '.js'],
-    root: './src'
+    root: BuildConfig.SOURCE
   };
 
   public module: webpack.Module = new WebPackModule();
