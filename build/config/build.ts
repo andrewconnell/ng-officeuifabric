@@ -27,6 +27,11 @@ export class BuildConfig {
   public static OUTPUT_PATH: string = BuildConfig.ROOT + '/dist';
   public static OUTPUT_LIB_NAME: string = 'ngOfficeUiFabric';
 
+  // docs
+  public static DOCS_PATH: string = BuildConfig.ROOT + '/docs';
+  public static DOCS_CONFIG_PATH: string = BuildConfig.BUILD_PATH + '/config/docs';
+  public static DOCS_OUTPUT_PATH: string = BuildConfig.OUTPUT_PATH + '/docs';
+
   public static BUILDRPT_PATH: string = BuildConfig.ROOT + '/reports';
   // code coverage reports
   public static COVERAGERPT_PATH: string = BuildConfig.BUILDRPT_PATH + '/code-coverage';

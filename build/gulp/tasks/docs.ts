@@ -51,7 +51,7 @@ export class GulpTask extends BaseGulpTask {
     };
 
     // convert directive docs
-    let sourceDocs: NodeJS.ReadWriteStream = gulp.src(['./src/components/**/*.md'])
+    let sourceDocs: NodeJS.ReadWriteStream = gulp.src([BuildConfig.SOURCE + '/components/**/*.md'])
       .pipe($.markdown(markdownOptions))
       .pipe($.rename((path: gulpRename.ParsedPath) => {
         // set basename to dirname (the name of the component)
@@ -59,12 +59,12 @@ export class GulpTask extends BaseGulpTask {
         // remove subdirectory where doc came from
         path.dirname = '';
       }))
-      .pipe(gulp.dest('dist/docs/directives'));
+      .pipe(gulp.dest(BuildConfig.DOCS_OUTPUT_PATH + '/directives'));
 
     // convert guide docs
-    let contentDocs: NodeJS.ReadWriteStream = gulp.src(['docs/*.md'])
+    let contentDocs: NodeJS.ReadWriteStream = gulp.src([BuildConfig.DOCS_PATH + '/*.md'])
       .pipe($.markdown(markdownOptions))
-      .pipe(gulp.dest('dist/docs/content'));
+      .pipe(gulp.dest(BuildConfig.DOCS_OUTPUT_PATH + '/content'));
 
     return gulpMerge(sourceDocs, contentDocs);
   }

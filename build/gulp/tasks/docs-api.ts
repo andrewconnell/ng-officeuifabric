@@ -3,6 +3,7 @@ import { BuildConfig } from '../../config/build';
 import * as gulp from 'gulp';
 import * as runSequence from 'run-sequence';
 let dgeni: any = require('dgeni');
+let dgeniConfig: any = require('../../config/dgeni.js');
 
 /**
  * Creates API documentation for directives.
@@ -38,7 +39,7 @@ export class GulpTask extends BaseGulpTask {
     // todo: delete prior generated docs
 
     // create instance of generator and create docs
-    let dg: any = new dgeni([require('../../config/dgeni.js')]);
+    let dg: any = new dgeni([dgeniConfig]);
     return dg.generate().then();
 
   }

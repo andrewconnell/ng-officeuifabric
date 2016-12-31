@@ -1,3 +1,4 @@
+import { BuildConfig } from './build';
 let path: any = require('canonical-path');
 let packagePath: string = __dirname;
 
@@ -17,20 +18,17 @@ const dgeniPackageDeps: any[] = [
 ];
 
 const projectRootDir: string = path.resolve(__dirname, '../..');
-const sourceDir: string = path.resolve(projectRootDir, 'src');
-const outputDir: string = path.resolve(projectRootDir, 'dist/docs/api');
-const templateDir: string = path.resolve(projectRootDir, 'build/config/docs/templates');
+const sourceDir: string = path.resolve(projectRootDir, BuildConfig.SOURCE);
+const outputDir: string = path.resolve(projectRootDir, BuildConfig.DOCS_OUTPUT_PATH + '/api');
+const templateDir: string = path.resolve(projectRootDir, BuildConfig.DOCS_CONFIG_PATH + '/templates');
 
-const privateTagProcessor: string = path.resolve(projectRootDir, 'build/config/docs/processors/docs-private-filter.js');
+const privateTagProcessor: string = path.resolve(projectRootDir, BuildConfig.DOCS_CONFIG_PATH + '/processors/docs-private-filter.js');
 
-// create and export a new Dgeni package
-// we will use Gulp later on to generate that package
-// think of packages as containers, our 'myDoc' package contains other packages
-// which themselves include processors, services, templates...
+// create new Dgeni package with entire API doc gen config
 module.exports = new Package('myDoc', dgeniPackageDeps)
   // set logging level
   .config((log) => {
-    // set the log level to 'info', switch to 'debug' when troubleshooting
+    // log level: 'info' | 'debug'
     log.level = 'info';
   })
 
@@ -86,26 +84,12 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
     // disable for now as we are using readTypeScriptModules
     readFilesProcessor.$enabled = false;
 
-    // // specify our source files that we want to extract
-    // readFilesProcessor.sourceFiles = [
-    //   // our static Markdown documents
-    //   // we are specifying the path and telling Dgeni to use the ngdocFileReader
-    //   // to parse the Markdown files to HTMLs
-    //   {
-    //     basePath: 'docs/content',
-    //     fileReader: 'ngdocFileReader',
-    //     include: 'docs/content/**/*.md'
-    //   }
-    // ];
     // use the writeFilesProcessor to specify the output folder for the extracted files
     writeFilesProcessor.outputFolder = outputDir;
   })
 
-  // so far using default dgeni processors to specify how we want to process & then convert our source files...
-  // now setup how we want to convert source => doc types
+  // setup how to convert source => doc types
   .config((computePathsProcessor, computeIdsProcessor) => {
-    // here we are defining what to output for our docType Module
-
     // configure the output path for written files (i.e., file names).
     computePathsProcessor.pathTemplates = [
       {
@@ -125,28 +109,6 @@ module.exports = new Package('myDoc', dgeniPackageDeps)
       }
     ];
 
-    // setup the computePathsProcessor to output the files to HTML partials
-
-    // create new compute for 'content' type doc
-    // indexPage is something new we will be defining later
-    // computeIdsProcessor.idTemplates.push({
-    //   docTypes: ['content', 'indexPage'],
-    //   getAliases: function (doc: any): string[] { return [doc.id]; },
-    //   getId: function (doc: any): string { return doc.fileInfo.baseName; }
-    // });
-
-    // build custom paths and set the outputPaths for "content" pages
-    // computePathsProcessor.pathTemplates.push({
-    //   docTypes: ['content'],
-    //   getPath: function (doc) {
-    //     var docPath = path.dirname(doc.fileInfo.relativePath);
-    //     if (doc.fileInfo.baseName !== 'index') {
-    //       docPath = path.join(docPath, doc.fileInfo.baseName);
-    //     }
-    //     return docPath;
-    //   },
-    //   outputPathTemplate: 'partials/${path}.html'
-    // });
   })
 
   // configure the processor for understanding TypeScript.
