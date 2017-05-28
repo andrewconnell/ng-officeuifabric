@@ -6,6 +6,7 @@ export class BuildConfig {
   public static BUILD_PATH: string = BuildConfig.ROOT + '/build';
   public static GULP_TASKS: string = BuildConfig.BUILD_PATH + '/gulp/tasks';
   public static SOURCE: string = BuildConfig.ROOT + '/src/lib';
+  public static DEMO_SITE_SOURCE: string = BuildConfig.ROOT + '/src/demo-site';
 
   // get version number
   /* tslint:disable:no-string-literal */

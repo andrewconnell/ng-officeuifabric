@@ -1,0 +1,65 @@
+{
+  "navGroups": [
+    {
+      "group": "buttons, indicators & icons",
+      "directives": [
+        "button",
+        "icon",
+        "progressindicator",
+        "toggle",
+        "spinner"
+      ]
+    },
+    {
+      "group": "form controls",
+      "directives": [
+        "choicefield",
+        "datepicker",
+        "dropdown",
+        "label",
+        "textfield",
+        "searchbox"
+      ]
+    },
+    {
+      "group": "layout",
+      "directives": [
+        "content",
+        "list",
+        "overlay",
+        "panel",
+        "table"
+      ]
+    },
+    {
+      "group": "navigation",
+      "directives": [
+        "breadcrumb",
+        "commandbar",
+        "contextualmenu",
+        "link",
+        "navbar",
+        "pivot"
+      ]
+    },
+    {
+      "group": "people",
+      "directives": [
+        "facepile",
+        "orgchart",
+        "peoplepicker",
+        "persona",
+        "personacard"
+      ]
+    },
+    {
+      "group": "messages, modals & popups",
+      "directives": [
+        "callout",
+        "dialog",
+        "messagebanner",
+        "messagebar"
+      ]
+    }
+  ]
+}
