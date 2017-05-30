@@ -11,7 +11,7 @@
 
   <!-- angular library -->
   <script src="../../node_modules/angular/angular.min.js"></script>
-  <script src="../../node_modules/angular-route/angular-route.min.js"></script>
+  <!--script src="../../node_modules/angular-route/angular-route.min.js"></script-->
   <script src="../../node_modules/angular-animate/angular-animate.min.js"></script>
   <script src="../../node_modules/angular-sanitize/angular-sanitize.min.js"></script>
   <!-- jquery (pickadate depends on jquery) -->
@@ -32,9 +32,7 @@
     <script src="scripts/bundle.js"></script>
   <!-- END: these will will need to be injected in when moving to the public site's repo -->
 </head>
-<body>
-  <div>before app</div>
+<body ng-app="uifDemoSite">
   <app></app>
-  <div>after app</div>
 </body>
 </html>
